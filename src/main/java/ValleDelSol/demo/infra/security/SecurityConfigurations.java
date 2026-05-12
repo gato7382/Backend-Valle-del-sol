@@ -36,6 +36,8 @@ public class SecurityConfigurations {
                     req.requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll();
                     req.requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll();
                     req.requestMatchers("/h2-console/**").permitAll(); // Permitir acceso a la consola H2
+                    // Permitir el acceso a Swagger UI y a la documentación OpenAPI
+                    req.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll();
                     req.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
                     req.anyRequest().authenticated();
                 })
