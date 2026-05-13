@@ -31,15 +31,23 @@ public class User implements UserDetails {
 
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    private Role rol;
+
     public User(String nombre, String email, String password) {
         this.nombre = nombre;
         this.email = email;
         this.password = password;
+        this.rol = Role.CIVIL; // Todos los usuarios nuevos son CIVIL por defecto
+    }
+
+    public void actualizarRol(Role nuevoRol) {
+        this.rol = nuevoRol;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        return List.of(new SimpleGrantedAuthority("ROLE_" + this.rol.name()));
     }
 
     @Override
